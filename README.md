@@ -1,19 +1,10 @@
 # acme
 
-## Flow
+Dummy repo to demonstrate one approach to use a single shared codebase across several other repos.
 
-Pull all the repos in one place like that:
-
-```
-ACME
-    /acme
-    /acme_api
-    /acme_backend
-    /acme_kernel
-```
-
-Run docker:
+## Quickstart
 
 ```
-$ docker compose -f docker-compose.dev.yml up
+$ ./init.sh # Only once (the first time you get the project)
+$ ./run.sh
 ```
