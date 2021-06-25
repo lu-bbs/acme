@@ -1,0 +1,28 @@
+services:
+    api:
+        build:
+            context: ../acme_api
+            dockerfile: Dockerfile
+        command: /bin/bash -c "cd /var/www/html && composer install && apache2-foreground"
+        volumes:
+            - '../acme_api:/var/www/html'
+            - '../acme_kernel:/var/www/acme_kernel'
+        ports:
+            - ${API_HOST_PORT}:${API_CONTAINER_PORT}
+        environment:
+            - APP_NAME=${API_APP_NAME:-api-default}
+            - COMPOSER=${COMPOSER}
+    backend:
+        build:
+            context: ../acme_backend
+            dockerfile: Dockerfile
+        command: /bin/bash -c "cd /var/www/html && composer install && apache2-foreground"
+        image: php:7.2-apache
+        volumes:
+            - '../acme_backend:/var/www/html'
+            - '../acme_kernel:/var/www/acme_kernel'
+        ports:
+            - ${BACKEND_HOST_PORT}:${BACKEND_CONTAINER_PORT}
+        environment:
+            - APP_NAME=${BACKEND_APP_NAME:-backend-default}
+            - COMPOSER=${COMPOSER}
